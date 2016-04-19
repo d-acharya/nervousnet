@@ -38,8 +38,10 @@ import android.widget.TextView;
 import ch.ethz.coss.nervousnet.hub.R;
 import ch.ethz.coss.nervousnet.lib.BatteryReading;
 import ch.ethz.coss.nervousnet.lib.SensorReading;
+import ch.ethz.coss.nervousnet.hub.ui.view.BatterySensorView;
 
 public class BatteryFragment extends BaseFragment {
+	BatterySensorView batView;
 
 	public BatteryFragment() {
 	}
@@ -77,6 +79,12 @@ public class BatteryFragment extends BaseFragment {
 
 		TextView AC_charging = (TextView) getActivity().findViewById(R.id.battery_isAC);
 		AC_charging.setText(((BatteryReading) reading).getCharging_type() == 0 ? "YES" : "NO");
+		
+		batView = (BatterySensorView) getActivity().findViewById(R.id.batVizView);
+		batView.setChargingState(((BatteryReading) reading).isCharging());
+		batView.setACCharging(((BatteryReading) reading).getCharging_type() == 0);
+		batView.setUSBCharging(((BatteryReading) reading).getCharging_type() == 1);
+		batView.setBatteryLevel(((BatteryReading) reading).getPercent() * 100);
 
 	}
 
