@@ -38,9 +38,11 @@ import android.widget.TextView;
 import ch.ethz.coss.nervousnet.hub.R;
 import ch.ethz.coss.nervousnet.lib.NoiseReading;
 import ch.ethz.coss.nervousnet.lib.SensorReading;
+import ch.ethz.coss.nervousnet.hub.ui.view.SoundSensorView;
 
 public class NoiseFragment extends BaseFragment {
-
+	private SoundSensorView noiseView;
+	
 	public NoiseFragment() {
 	}
 
@@ -51,7 +53,7 @@ public class NoiseFragment extends BaseFragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View rootView = inflater.inflate(R.layout.fragment_noise, container, false);
-
+		noiseView = (SoundSensorView)rootView.findViewById(R.id.noiseVizView);
 		return rootView;
 	}
 
@@ -64,10 +66,10 @@ public class NoiseFragment extends BaseFragment {
 	 */
 	@Override
 	public void updateReadings(SensorReading reading) {
-
 		Log.d("NoiseFragment", "Inside updateReadings");
 		TextView db = (TextView) getActivity().findViewById(R.id.dbValue);
 		db.setText("" + ((NoiseReading) reading).getdbValue());
+		noiseView.setDecibleValue(140);
+		//noiseView.setDecibleValue(((NoiseReading) reading).getdbValue()?140?140:((NoiseReading) reading).getdbValue());
 	}
-
 }
