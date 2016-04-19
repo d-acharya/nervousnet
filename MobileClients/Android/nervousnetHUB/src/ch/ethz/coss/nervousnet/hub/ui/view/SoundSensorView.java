@@ -272,7 +272,7 @@ public class SoundSensorView extends View {
 	}
 	
 	public void setDecibleValue(float value){
-		dB = value;
+		dB = value>140?140:value;
 		invalidate();
 	}
 }
