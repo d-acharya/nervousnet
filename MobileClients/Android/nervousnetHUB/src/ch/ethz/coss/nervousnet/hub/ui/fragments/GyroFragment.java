@@ -36,6 +36,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import ch.ethz.coss.nervousnet.hub.R;
+import ch.ethz.coss.nervousnet.hub.ui.view.AccelerometerSensorView;
+import ch.ethz.coss.nervousnet.hub.ui.view.GyroscopeSensorView;
+import ch.ethz.coss.nervousnet.lib.AccelerometerReading;
 import ch.ethz.coss.nervousnet.lib.GyroReading;
 import ch.ethz.coss.nervousnet.lib.SensorReading;
 
@@ -44,7 +47,8 @@ import ch.ethz.coss.nervousnet.lib.SensorReading;
  *
  */
 public class GyroFragment extends BaseFragment {
-
+	
+	GyroscopeSensorView gyroView;
 	public GyroFragment() {
 	}
 
@@ -55,7 +59,7 @@ public class GyroFragment extends BaseFragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View rootView = inflater.inflate(R.layout.fragment_gyro, container, false);
-
+		gyroView = (GyroscopeSensorView)rootView.findViewById(R.id.gyroVizView);
 		return rootView;
 	}
 
@@ -77,7 +81,11 @@ public class GyroFragment extends BaseFragment {
 		x_value.setText("" + ((GyroReading) reading).getGyroX());
 		y_value.setText("" + ((GyroReading) reading).getGyroY());
 		z_value.setText("" + ((GyroReading) reading).getGyroZ());
-
+		
+		float[] f = new float[3];
+		f[0]=((GyroReading) reading).getGyroX();
+		f[1]=((GyroReading) reading).getGyroY();
+		f[2]=((GyroReading) reading).getGyroZ();
+		gyroView.setGyroValues(f);
 	}
-
 }
